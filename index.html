@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Pacifico&family=Caveat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Great+Vibes&family=Satisfy&display=swap');
+        
+        .title-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        .text-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            line-height: 1.8;
+        }
+        
+        .dancing-font {
+            font-family: 'Great Vibes', cursive;
+            font-weight: 400;
+        }
+        
+        .decorative-font {
+            font-family: 'Satisfy', cursive;
+            font-weight: 400;
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .heart {
+            position: absolute;
+            color: #fbbf24;
+            font-size: 20px;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        .gift-box {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .gift-box:hover {
+            transform: scale(1.1);
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        
+        .race-track {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .runner {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            transition: right 3s ease-in-out;
+        }
+        
+        .finish-line {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: repeating-linear-gradient(
+                0deg,
+                #000 0px,
+                #000 10px,
+                #fff 10px,
+                #fff 20px
+            );
+        }
+        
+        .photo-placeholder {
+            background: linear-gradient(45deg, #fef3c7, #fde68a, #fcd34d, #fbbf24);
+            border: 3px dashed #9ca3af;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-weight: bold;
+        }
+        
+        .yellow-bg {
+            background-image: url('https://public.youware.com/users-website-assets/prod/3cd1b218-7873-4103-8367-7e89e63b656a/4c794a4ea80b401e8e91ae7d96e89345.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-amber-100 via-yellow-50 to-amber-200 relative overflow-x-hidden">
+    <!-- Floating Hearts Background -->
+    <div class="floating-hearts" id="heartsContainer"></div>
+    
+    <!-- Main Container -->
+    <div class="relative z-10 min-h-screen flex flex-col">
+        
+        <!-- Intro - Ask if want to see the card -->
+        <div id="intro-page" class="min-h-screen flex flex-col items-center justify-center p-4">
+            <div class="text-center max-w-md mx-auto">
+                <!-- Naruto Icon -->
+                <div class="w-64 h-64 mx-auto mb-8 rounded-3xl overflow-hidden shadow-lg">
+                    <img src="PP Naruto Kawai.jpeg" alt="PP Naruto Kawai" class="w-full h-full object-cover">
+                </div>
+                
+                <h2 class="text-3xl dancing-font text-amber-800 mb-8">
+                    Would you like to see the card?
+                </h2>
+                
+                <div class="space-y-4">
+                    <button onclick="showGiftAnimation()" class="w-full py-3 px-6 bg-amber-500 hover:bg-amber-600 text-white rounded-full title-font text-xl transition-colors duration-300 transform hover:scale-105">
+                        YESSS
+                    </button>
+                    
+                    <button onclick="showNoPage()" class="w-full py-3 px-6 bg-gray-400 hover:bg-gray-500 text-white rounded-full title-font text-xl transition-colors duration-300 transform hover:scale-105">
+                        No ;_; 
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- "No" Page -->
+        <div id="no-page" class="min-h-screen flex flex-col items-center justify-center p-4 hidden">
+            <div class="text-center max-w-md mx-auto">
+                <!-- Naruto Uzumaki -->
+                <div class="w-64 h-64 mx-auto mb-8 rounded-3xl overflow-hidden shadow-lg">
+                    <img src="Naruto Sad.jpeg" alt="Naruto Uzumaki" class="w-full h-full object-cover">
+                </div>
+                
+                <h2 class="text-4xl dancing-font text-amber-800 mb-8">
+                    Why nooottt? (˃̣̣̥ᯅ˂̣̣̥)
+                </h2>
+                
+                <button onclick="showIntroPage()" class="w-full py-3 px-6 bg-amber-500 hover:bg-amber-600 text-white rounded-full title-font text-xl transition-colors duration-300 transform hover:scale-105">
+                    Fine, I'll loot at it :\
+                </button>
+            </div>
+        </div>
+        
+        <!-- Gift Animation -->
+        <div id="gift-animation" class="min-h-screen flex flex-col items-center justify-center p-4 hidden">
+            <div class="text-center">
+                <div class="gift-box w-32 h-32 mx-auto mb-8" onclick="openGift()">
+                    <div class="w-full h-full bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg shadow-lg relative">
+                        <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-yellow-400 rounded"></div>
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 w-1 h-full bg-yellow-400"></div>
+                        <div class="absolute inset-0 flex items-center justify-center text-white text-2xl">
+                            🎁
+                        </div>
+                    </div>
+                </div>
+                <p class="decorative-font text-2xl text-amber-800">Touch the gift to open it!</p>
+            </div>
+        </div>
+        
+        <!-- Main Letter -->
+        <div id="main-letter" class="min-h-screen p-4 hidden">
+            <!-- Yellow background image -->
+            <div class="fixed inset-0 z-0 yellow-bg opacity-20"></div>
+            
+            <div class="relative z-10 max-w-4xl mx-auto">
+                <!-- Main title -->
+                <div class="text-center mb-12 pt-8">
+                    <h1 class="text-5xl md:text-7xl title-font text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 mb-4 drop-shadow-lg">
+                        HAPPY BIRTHDAY, CHUCHAY
+                    </h1>
+                    <div class="w-32 h-1 bg-gradient-to-r from-amber-500 to-yellow-500 mx-auto rounded-full"></div>
+                </div>
+                
+                <!-- Main letter text -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-8 mb-12 shadow-2xl border border-amber-200">
+                    <p class="text-font text-lg leading-relaxed text-gray-800">
+                        Today is the birthday of someone very important and special to me, someone who has enchanting beauty both physically and in personality, who has beautiful eyes that make me feel like I'm going to melt every time I see them, someone I felt an enormous connection with since I met them, someone I met exactly on December 17, 2024, someone who makes me happy with every word, action and feeling, making me feel like the most loved person in the fokin world, yes, it's you, there are so many things I want to tell you on this special day that I feel I would never finish writing...
+                        <br><br>
+                        Since we became a couple, not a single day goes by without me thinking about how fortunate I am to have you and to have found you. My life was something completely different from what it is now that I'm with you. Before, I didn't know what it was like to smile at the screen like an idiot, to wait for a message, what it was like to truly love someone, until you appeared, my love.
+                        <br><br>
+                        To me, you are everything that's good in my life, you're my peace, my light, my only choice, my best part, my girlfriend, and even though we're not physically together, I feel you more than any other person by my side. I swear that you're in my thoughts all day, even when I don't write to you all the time, you're always in my mind. If I wanted to, I would write to you every time I think of you, but that would be 73838 messages reaching you every day, because the times I think of you are infinite since you're always there all day, even at night I dream of you, and although sometimes the dreams are weird, I like them because you're there with me.
+                        <br><br>
+                        You're the reason I breathe each day, the reason my heart beats non-stop, the reason I'm happy. Without you, believe me, without you I would be nothing, because you are my everything, you're the reason I want to live. If you ever leave, honestly I don't know what I would do, because my day to day is you.
+                    </p>
+                </div>
+                
+                <!-- Hidden gifts section -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-8 mb-12 shadow-2xl border border-amber-200">
+                    <h3 class="dancing-font text-4xl text-center text-amber-800 mb-8">
+                        Touch the icons to see the hidden gifts (⁠~⁠‾⁠▿⁠‾⁠)⁠~
+                    </h3>
+                    
+                    <div class="grid grid-cols-3 gap-6 mb-8">
+                        <button onclick="showGift(1)" class="w-20 h-20 mx-auto bg-gradient-to-br from-yellow-400 to-yellow-600 text-white text-2xl font-bold rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 flex items-center justify-center">
+                            <span class="text-2xl">🌼</span>
+                        </button>
+                        <button onclick="showGift(2)" class="w-20 h-20 mx-auto bg-gradient-to-br from-amber-400 to-amber-600 text-white text-2xl font-bold rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 flex items-center justify-center">
+                            <span class="text-2xl">✉️</span>
+                        </button>
+                        <button onclick="showGift(3)" class="w-20 h-20 mx-auto bg-gradient-to-br from-yellow-500 to-amber-500 text-white text-2xl font-bold rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 flex items-center justify-center">
+                            <span class="text-2xl">💛</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Area where gifts appear -->
+                    <div id="gift-area" class="hidden">
+                        <div class="bg-gradient-to-br from-yellow-50 to-amber-50 rounded-2xl p-6 border-2 border-amber-200">
+                            <div id="gift-content" class="text-center dancing-font text-2xl text-amber-800"></div>
+                            <div id="gift-game" class="my-6 hidden"></div>
+                            <div class="text-center mt-6">
+                                <button id="gift-continue-btn" class="py-3 px-6 bg-amber-500 hover:bg-amber-600 text-white rounded-full title-font text-lg transition-colors duration-300 transform hover:scale-105">
+                                    Continue
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Gift games and displays -->
+        <div id="gift-display" class="min-h-screen flex flex-col items-center justify-center p-4 hidden">
+            <div class="w-full max-w-2xl">
+                <h3 id="gift-display-title" class="dancing-font text-5xl text-center text-amber-800 mb-8"></h3>
+                
+                <!-- Flower animation gift -->
+                <div id="flower-gift" class="hidden">
+                    <div class="relative w-72 h-72 mx-auto mb-8 cursor-pointer" onclick="showFlowerAnimation()">
+                        <div id="flower-animation" class="w-full h-full flex items-center justify-center">
+                            <!-- Flower petals -->
+                            <div class="flower">
+                                <div class="flower-center"></div>
+                                <div class="flower-petal petal-1"></div>
+                                <div class="flower-petal petal-2"></div>
+                                <div class="flower-petal petal-3"></div>
+                                <div class="flower-petal petal-4"></div>
+                                <div class="flower-petal petal-5"></div>
+                                <div class="flower-petal petal-6"></div>
+                                <div class="flower-petal petal-7"></div>
+                                <div class="flower-petal petal-8"></div>
+                                <div class="flower-stem"></div>
+                                <div class="flower-leaf"></div>
+                            </div>
+                        </div>
+                        <div id="heart-popup" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-700">
+                            <div class="heart-icon">❤️</div>
+                        </div>
+                    </div>
+                    <p class="dancing-font text-2xl text-center text-amber-800 mb-4">Click the flower to see what happens!</p>
+                </div>
+
+                <style>
+                    /* Flower Animation Styles */
+                    .flower {
+                        position: relative;
+                        width: 100px;
+                        height: 100px;
+                        transition: transform 0.7s ease;
+                    }
+                    
+                    .flower-center {
+                        position: absolute;
+                        width: 40px;
+                        height: 40px;
+                        background-color: #FFD700;
+                        border-radius: 50%;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        z-index: 2;
+                        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+                    }
+                    
+                    .flower-petal {
+                        position: absolute;
+                        width: 30px;
+                        height: 60px;
+                        background-color: #FFF59D;
+                        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+                        top: 50%;
+                        left: 50%;
+                        transform-origin: center bottom;
+                        z-index: 1;
+                        animation: sway 3s infinite ease-in-out;
+                    }
+                    
+                    .petal-1 { transform: translate(-50%, -100%) rotate(0deg); }
+                    .petal-2 { transform: translate(-50%, -100%) rotate(45deg); }
+                    .petal-3 { transform: translate(-50%, -100%) rotate(90deg); }
+                    .petal-4 { transform: translate(-50%, -100%) rotate(135deg); }
+                    .petal-5 { transform: translate(-50%, -100%) rotate(180deg); }
+                    .petal-6 { transform: translate(-50%, -100%) rotate(225deg); }
+                    .petal-7 { transform: translate(-50%, -100%) rotate(270deg); }
+                    .petal-8 { transform: translate(-50%, -100%) rotate(315deg); }
+                    
+                    .flower-stem {
+                        position: absolute;
+                        width: 8px;
+                        height: 100px;
+                        background-color: #7CB342;
+                        top: 100%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        z-index: 0;
+                    }
+                    
+                    .flower-leaf {
+                        position: absolute;
+                        width: 40px;
+                        height: 20px;
+                        background-color: #8BC34A;
+                        border-radius: 50%;
+                        top: 130%;
+                        left: 70%;
+                        transform: rotate(30deg);
+                        z-index: 0;
+                    }
+                    
+                    @keyframes sway {
+                        0%, 100% { transform: translate(-50%, -100%) rotate(var(--rotation)) scale(1); }
+                        50% { transform: translate(-50%, -100%) rotate(calc(var(--rotation) + 5deg)) scale(1.05); }
+                    }
+                    
+                    .heart-icon {
+                        font-size: 60px;
+                        animation: pulse 1.5s infinite;
+                        color: #FF5252;
+                    }
+                    
+                    @keyframes pulse {
+                        0%, 100% { transform: scale(1); }
+                        50% { transform: scale(1.2); }
+                    }
+                    
+                    /* Add rotation variable to each petal */
+                    .petal-1 { --rotation: 0deg; }
+                    .petal-2 { --rotation: 45deg; }
+                    .petal-3 { --rotation: 90deg; }
+                    .petal-4 { --rotation: 135deg; }
+                    .petal-5 { --rotation: 180deg; }
+                    .petal-6 { --rotation: 225deg; }
+                    .petal-7 { --rotation: 270deg; }
+                    .petal-8 { --rotation: 315deg; }
+                </style>
+                
+                <!-- Letters from friends gift -->
+                <div id="letters-gift" class="hidden">
+                    <div class="bg-amber-50 p-6 rounded-xl shadow-md mb-6">
+                        <img src="Naruto Friends.jpeg" alt="Naruto Friends" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <div class="letter-content p-8 border-2 border-amber-200 rounded-lg bg-white min-h-[200px]">
+                            <h4 class="font-bold text-lg mb-3" id="current-letter-friend"></h4>
+                            <p id="current-letter-message" class="text-gray-800 text-sm leading-relaxed"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between mb-4">
+                        <button id="prev-letter" class="py-2 px-4 bg-amber-500 hover:bg-amber-600 text-white rounded-full title-font text-lg transition-colors duration-300 transform hover:scale-105">Previous</button>
+                        <span id="letter-count" class="font-bold text-amber-800">Letter 1/7</span>
+                        <button id="next-letter" class="py-2 px-4 bg-amber-500 hover:bg-amber-600 text-white rounded-full title-font text-lg transition-colors duration-300 transform hover:scale-105">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Running game gift (3rd gift) -->
+                <div id="dice-gift" class="hidden">
+                    <div class="race-track mb-8">
+                        <div class="runner" id="runner">🏃‍♀️</div>
+                        <div class="finish-line"></div>
+                    </div>
+                    <p class="dancing-font text-2xl text-center text-amber-800 mb-4">Run to the finish line!</p>
+                    <div class="text-center">
+                        <button onclick="startRace()" class="py-3 px-8 bg-amber-500 hover:bg-amber-600 text-white rounded-full title-font text-xl transition-colors duration-300 transform hover:scale-105">
+                            Run!
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <button id="gift-continue-button" class="hidden py-3 px-8 bg-amber-500 hover:bg-amber-600 text-white rounded-full title-font text-xl transition-colors duration-300 transform hover:scale-105">
+                        Continue to Next Gift
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Confetti and final gift -->
+        <div id="final-gift" class="min-h-screen flex flex-col items-center justify-center p-4 hidden">
+            <div class="text-center max-w-4xl mx-auto">
+                <h3 class="dancing-font text-5xl text-amber-800 mb-8">
+                    Congratulations! You reached the finish line!
+                </h3>
+                
+                <div class="gift-box w-32 h-32 mx-auto mb-8" onclick="showFinalMessage()">
+                    <div class="w-full h-full bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg shadow-lg relative">
+                        <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-amber-400 rounded"></div>
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 w-1 h-full bg-amber-400"></div>
+                        <div class="absolute inset-0 flex items-center justify-center text-white text-2xl">
+                            🎁
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="decorative-font text-2xl text-amber-800">Touch the gift to open it!</p>
+            </div>
+        </div>
+        
+        <!-- Final message -->
+        <div id="final-message" class="min-h-screen p-4 hidden">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 mb-12 shadow-2xl border border-amber-200">
+                    <p class="text-font text-lg leading-relaxed text-gray-800 mb-8">
+                        I know this isn't the best birthday gift you'll receive, but at least let me give you pieces of my feelings and love in writing. Although it's not the best gift or the longest text you'll see in your life, it's the only thing I can give you besides drawings, letters, and videos. I want you to have an amazing day like never before. I want this day to be filled with your happiness. You might be busy today and not respond to some of my messages, but don't worry, I understand it's your birthday and a very busy but happy day!
+                        <br><br>
+                        I want you to feel special and loved because that's what you are to me, because I love you with all my heart, with everything I have and everything I am. Never doubt that please, because I think of you all day, miss you every second, and love you more and more as the days go by. I just want to thank you for how you've made me feel this year, so loved and appreciated, and I want you to see that I mean it seriously. I want to prove to you that I love you more than you can imagine. Thank you for being with me, loving me, and having patience with me. You don't know how much you mean to me and how important you are in my life. You're the only thing that matters to me and the only thing I've come to love so deeply, because every second being your partner, every step we take together, is one more step for my heart to love you much more than before. Thank you for brightening my days. Have a beautiful birthday, I want you to have a great time. I love you so much MUAA
+                        <span class="text-2xl ml-2">(⁠˘⁠³⁠˘⁠)⁠♥</span>
+                    </p>
+                </div>
+                
+                <!-- Dedicated songs -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 mb-12 shadow-2xl border border-amber-200">
+                    <h3 class="dancing-font text-4xl text-center text-amber-800 mb-8">
+                        Songs I dedicate to you
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <a href="https://open.spotify.com/search/Iris%20Goo%20Goo%20Dolls" target="_blank" class="block w-full py-3 px-6 bg-amber-500 hover:bg-amber-600 text-white rounded-full text-center title-font text-lg transition-colors duration-300 transform hover:scale-105">
+                            Iris - Goo Goo Dolls
+                        </a>
+                        
+                        <a href="https://open.spotify.com/search/Rest%20Assured%20Jeff%20Bernat" target="_blank" class="block w-full py-3 px-6 bg-amber-500 hover:bg-amber-600 text-white rounded-full text-center title-font text-lg transition-colors duration-300 transform hover:scale-105">
+                            Rest Assured - Jeff Bernat
+                        </a>
+                        
+                        <a href="https://open.spotify.com/search/Nothing's%20Gonna%20Hurt%20You%20Baby%20Cigarettes%20After%20Sex" target="_blank" class="block w-full py-3 px-6 bg-amber-500 hover:bg-amber-600 text-white rounded-full text-center title-font text-lg transition-colors duration-300 transform hover:scale-105">
+                            Nothing's Gonna Hurt You Baby - Cigarettes After Sex
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Final photo -->
+                <div class="text-center">
+                    <div class="w-64 h-64 mx-auto mb-8 rounded-3xl overflow-hidden shadow-lg">
+                        <img src="Naruto BDAY icon.jpeg" alt="Naruto Birthday" class="w-full h-full object-cover">
+                    </div>
+                    <h2 class="title-font text-5xl text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600">
+                        HAPPY BIRTHDAYYYY
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('heartsContainer');
+            const hearts = ['♥', '♡', '💕', '💖', '💗', '💝'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                container.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 7000);
+            }, 800);
+        }
+        
+        // Navigation between pages
+        function showGiftAnimation() {
+            document.getElementById('intro-page').classList.add('hidden');
+            document.getElementById('gift-animation').classList.remove('hidden');
+        }
+        
+        function showNoPage() {
+            document.getElementById('intro-page').classList.add('hidden');
+            document.getElementById('no-page').classList.remove('hidden');
+        }
+        
+        function showIntroPage() {
+            document.getElementById('no-page').classList.add('hidden');
+            document.getElementById('intro-page').classList.remove('hidden');
+        }
+        
+        function openGift() {
+            createConfetti();
+            setTimeout(() => {
+                document.getElementById('gift-animation').classList.add('hidden');
+                document.getElementById('main-letter').classList.remove('hidden');
+            }, 1000);
+        }
+        
+        // Gift system
+        let currentLetterIndex = 0;
+        const poems = {
+            1: "Your eyes are stars that light my way, in your smile I find peace and with you my love everything is divine (⁠◕⁠ᴗ⁠◕⁠✿⁠)",
+            2: "You are my sun, my moon, my shining star, my refuge, my home, my constant love, with you my heart beats strong and radiant and in your love I find my constant peace (⁠｡⁠♡⁠‿⁠♡⁠｡⁠)",
+            3: "You are the melody that fills my soul, the symphony that makes me sing, and that's why my love, I want to marry you (⁠ ⁠˘⁠ ⁠³⁠˘⁠)⁠♥"
+        };
+        
+        // Seven letters from friends with ready messages
+        const letters = [
+            { 
+                friend: "From Sakura", 
+                message: "Happy Birthday! Your friendship means the world to me. You bring so much joy and laughter into our lives. Stay amazing and never change! Love you lots! ❤️" 
+            },
+            { 
+                friend: "From Sasuke", 
+                message: "I may not show it often, but I value our bond. Happy Birthday - may your path be filled with strength and purpose. Thank you for always believing in me." 
+            },
+            { 
+                friend: "From Kakashi", 
+                message: "Another year wiser (and hopefully a bit less troublesome)! It's been an honor watching you grow. Happy Birthday - keep chasing your dreams with that same determination." 
+            },
+            { 
+                friend: "From Hinata", 
+                message: "H-happy Birthday! Your courage inspires me every day. Thank you for always being there and showing me what it means to never give up. You're amazing! 💜" 
+            },
+            { 
+                friend: "From Shikamaru", 
+                message: "Birthday celebrations are such a drag... but for you, I'll make an exception. Thanks for making even the boring days interesting. Happy Birthday!" 
+            },
+            { 
+                friend: "From Gaara", 
+                message: "On your special day, I'm reminded of how one person can change so many lives. Your friendship taught me the true meaning of connection. Happy Birthday." 
+            },
+            { 
+                friend: "From Iruka", 
+                message: "From your first day at the academy to now, you've never ceased to amaze me. I'm so proud of the person you've become. Happy Birthday to my favorite student!" 
+            }
+        ];
+        
+        const diceMessages = {
+            1: "You are the most beautiful person inside and out!",
+            2: "Your smile brightens even the darkest days!",
+            3: "Your kindness touches everyone around you!",
+            4: "Your laugh is my favorite sound in the world!",
+            5: "You make every day an adventure worth living!",
+            6: "You are my soulmate, my forever love!"
+        };
+        
+        let currentGiftNumber = 1;
+        
+        function showGift(number) {
+            // Store the current gift number
+            currentGiftNumber = number;
+            
+            // Hide main letter and show gift display
+            document.getElementById('main-letter').classList.add('hidden');
+            document.getElementById('gift-display').classList.remove('hidden');
+            document.getElementById('gift-continue-button').classList.add('hidden');
+            
+            // Hide all gift displays
+            document.getElementById('flower-gift').classList.add('hidden');
+            document.getElementById('letters-gift').classList.add('hidden');
+            document.getElementById('dice-gift').classList.add('hidden');
+            
+            // Show the poem for the gift
+            if (poems[number]) {
+                document.getElementById('gift-content').innerHTML = poems[number];
+            }
+            
+            if (number === 1) {
+                // Flower gift
+                document.getElementById('gift-display-title').textContent = 'A Special Flower For You!';
+                document.getElementById('flower-gift').classList.remove('hidden');
+            } else if (number === 2) {
+                // Letters from friends
+                document.getElementById('gift-display-title').textContent = 'Letters From Your Friends';
+                document.getElementById('letters-gift').classList.remove('hidden');
+                showLetter(0);
+                
+                // Navigation is now set up with named functions below
+                
+                // Remove previous event listeners to avoid duplicates
+                document.getElementById('next-letter').removeEventListener('click', handleNextLetterClick);
+                document.getElementById('prev-letter').removeEventListener('click', handlePrevLetterClick);
+                
+                // Define named functions for event handlers
+                function handleNextLetterClick() {
+                    if (currentLetterIndex < letters.length - 1) {
+                        showLetter(currentLetterIndex + 1);
+                    } else {
+                        document.getElementById('gift-continue-button').classList.remove('hidden');
+                    }
+                }
+                
+                function handlePrevLetterClick() {
+                    if (currentLetterIndex > 0) {
+                        showLetter(currentLetterIndex - 1);
+                    }
+                }
+                
+                // Add event listeners with named functions
+                document.getElementById('next-letter').addEventListener('click', handleNextLetterClick);
+                document.getElementById('prev-letter').addEventListener('click', handlePrevLetterClick);
+            } else if (number === 3) {
+                // Running game
+                document.getElementById('gift-display-title').textContent = 'Run to the Finish Line!';
+                document.getElementById('dice-gift').classList.remove('hidden');
+            }
+        }
+        
+        function showLetter(index) {
+            // Update the current index
+            currentLetterIndex = index;
+            
+            // Update the letter count display
+            document.getElementById('letter-count').textContent = `Letter ${index + 1}/${letters.length}`;
+            
+            // Update button states
+            document.getElementById('prev-letter').disabled = index === 0;
+            document.getElementById('prev-letter').style.opacity = index === 0 ? '0.5' : '1';
+            
+            if (index === letters.length - 1) {
+                document.getElementById('next-letter').textContent = "Finish";
+            } else {
+                document.getElementById('next-letter').textContent = "Next";
+            }
+            
+            // Display the current letter (now using static content)
+            const friendElement = document.getElementById('current-letter-friend');
+            const messageElement = document.getElementById('current-letter-message');
+            
+            if (friendElement && messageElement) {
+                friendElement.textContent = letters[index].friend;
+                messageElement.textContent = letters[index].message;
+            }
+        }
+        
+        function showFlowerAnimation() {
+            const heartPopup = document.getElementById('heart-popup');
+            const flowerAnimation = document.getElementById('flower-animation');
+            
+            // Scale down the flower
+            flowerAnimation.querySelector('.flower').style.transform = 'scale(0.75)';
+            
+            // Show heart popup
+            heartPopup.classList.add('opacity-100');
+            
+            // Show continue button after animation
+            setTimeout(() => {
+                document.getElementById('gift-continue-button').classList.remove('hidden');
+            }, 1500);
+        }
+        
+        function rollDice() {
+            const diceResult = document.getElementById('dice-result');
+            const diceMessage = document.getElementById('dice-message');
+            
+            // Hide previous result and message
+            diceResult.classList.add('hidden');
+            diceMessage.classList.add('hidden');
+            
+            // Animation for rolling dice
+            const rollCount = 10;
+            let currentRoll = 0;
+            
+            const rollInterval = setInterval(() => {
+                const randomValue = Math.floor(Math.random() * 6) + 1;
+                diceResult.textContent = randomValue;
+                diceResult.classList.remove('hidden');
+                
+                currentRoll++;
+                if (currentRoll >= rollCount) {
+                    clearInterval(rollInterval);
+                    
+                    // Show final result
+                    const finalValue = Math.floor(Math.random() * 6) + 1;
+                    diceResult.textContent = finalValue;
+                    
+                    // Show message
+                    setTimeout(() => {
+                        diceMessage.innerHTML = diceMessages[finalValue];
+                        diceMessage.classList.remove('hidden');
+                        document.getElementById('gift-continue-button').classList.remove('hidden');
+                    }, 500);
+                }
+            }, 200);
+        }
+        
+        // Continue to final gift
+        function setupGiftContinueButton() {
+            const continueButton = document.getElementById('gift-continue-button');
+            if (continueButton) {
+                continueButton.addEventListener('click', () => {
+                    document.getElementById('gift-display').classList.add('hidden');
+                    
+                    if (currentGiftNumber < 3) {
+                        // Go to the next gift
+                        currentGiftNumber++;
+                        showGift(currentGiftNumber);
+                    } else {
+                        // If we've gone through all gifts, show the final gift
+                        document.getElementById('final-gift').classList.remove('hidden');
+                    }
+                });
+            }
+        }
+        
+        function showFinalMessage() {
+            createConfetti();
+            setTimeout(() => {
+                document.getElementById('final-gift').classList.add('hidden');
+                document.getElementById('final-message').classList.remove('hidden');
+            }, 1000);
+        }
+        
+        // Create confetti
+        function createConfetti() {
+            const colors = ['#fcd34d', '#f59e0b', '#fbbf24', '#d97706', '#92400e', '#78350f'];
+            
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, i * 10);
+            }
+        }
+        
+        // Add falling animation for confetti
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Add race functionality
+        function startRace() {
+            const runner = document.getElementById('runner');
+            
+            // Reset the runner's initial position
+            runner.style.transition = 'none';
+            runner.style.right = '0px';
+            
+            // Force browser reflow to ensure the animation works properly
+            void runner.offsetWidth;
+            
+            // Move to finish line with a slight delay to ensure animation works
+            setTimeout(() => {
+                // Apply the animation - 3 seconds duration
+                runner.style.transition = 'right 3s linear';
+                runner.style.right = 'calc(100% - 50px)'; // End at the finish line
+                
+                // Show continue button after race is completed
+                setTimeout(() => {
+                    document.getElementById('gift-continue-button').classList.remove('hidden');
+                }, 3100); // Show button right after animation completes (3s + 100ms)
+            }, 10);
+        }
+        
+        // Initialize and load saved letters from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingHearts();
+            setupGiftContinueButton();
+            
+            // No need to load from localStorage anymore as we use predefined messages
+            
+            // Initialize letter handlers as global variables
+            window.handleNextLetterClick = function() {
+                if (currentLetterIndex < letters.length - 1) {
+                    showLetter(currentLetterIndex + 1);
+                } else {
+                    document.getElementById('gift-continue-button').classList.remove('hidden');
+                }
+            };
+            
+            window.handlePrevLetterClick = function() {
+                if (currentLetterIndex > 0) {
+                    showLetter(currentLetterIndex - 1);
+                }
+            };
+            
+            // No need to save to localStorage since we have static messages now
+        });
+    </script>
+</body>
+</html>
